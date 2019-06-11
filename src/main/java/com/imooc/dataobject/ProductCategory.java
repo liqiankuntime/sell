@@ -8,13 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
-@DynamicUpdate
+@Entity//数据库映射成对象
+@DynamicUpdate//数据库自动修改日期
 @Data
 //Data包含了生成get和set以及同String的方法，就可以不用在写get和set的方法了
 public class ProductCategory {
-    @Id
-    @GeneratedValue
+    @Id//主键
+    @GeneratedValue//自增类型
     private Integer categoryId;
     private String categoryName;
     private Integer categoryType;

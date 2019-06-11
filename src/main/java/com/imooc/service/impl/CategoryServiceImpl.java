@@ -7,16 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * CategoryService接口的实现类
+ * Created by Liqiankun on 2019/6/11
+ * param:
+ */
+
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private ProductCategoryRepository repository;
-
+    ProductCategoryRepository repository;
 
     @Override
     public ProductCategory findOne(Integer categoryId) {
-        return repository.findById(categoryId).get();//findOne(categoryId);
+        return repository.findById(categoryId).get();
     }
 
     @Override
@@ -25,7 +32,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<ProductCategory> findByCategoryTypeId(List<Integer> categoryTypeList) {
+    public List<ProductCategory> findByCategoryTypeIn(List<Integer> categoryTypeList) {
         return repository.findByCategoryTypeIn(categoryTypeList);
     }
 

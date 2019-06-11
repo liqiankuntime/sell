@@ -1,7 +1,7 @@
 package com.imooc.service.impl;
 
+import com.imooc.Enums.ProductStatusEnum;
 import com.imooc.dataobject.ProductInfo;
-import com.imooc.enums.ProductStatusEnum;
 import com.imooc.repository.ProductInfoRepository;
 import com.imooc.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +11,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Created by Liqiankun on 2019/6/12
+ * param:
+ */
+
 @Service
 public class ProductServiceImpl implements ProductService {
+
     @Autowired
     private ProductInfoRepository repository;
+
 
     @Override
     public ProductInfo findOne(String productId) {
@@ -22,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductInfo> findAll() {
+    public List<ProductInfo> findUpAll() {
         return repository.findByProductStatus(ProductStatusEnum.UP.getCode());
     }
 

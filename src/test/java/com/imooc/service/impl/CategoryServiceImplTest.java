@@ -12,32 +12,40 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.*;
+
+/**
+ * Created by Liqiankun on 2019/6/11
+ * param:
+ */
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CategoryServiceImplTest {
+
     @Autowired
     private CategoryServiceImpl categoryService;
+
     @Test
-    public void findOne() throws Exception {
-        ProductCategory productCategory = categoryService.findOne(5);
-        Assert.assertEquals(new Integer(5), productCategory.getCategoryId());
+    public void findOne() {
+        ProductCategory productCategory = categoryService.findOne(1);
+        Assert.assertEquals(new Integer(1), productCategory.getCategoryId());
     }
 
     @Test
     public void findAll() {
-        List<ProductCategory> productCategories = categoryService.findAll();
-        Assert.assertNotEquals(0, productCategories.size());
+        List<ProductCategory> result = categoryService.findAll();
+        Assert.assertNotEquals(0, result.size());
     }
 
     @Test
     public void findByCategoryTypeIn() {
-        List<ProductCategory> productCategoryList = categoryService.findByCategoryTypeId(Arrays.asList(2,3,4));
-        Assert.assertNotEquals(0,productCategoryList.size());
+        List<ProductCategory> productCategoryList = categoryService.findByCategoryTypeIn(Arrays.asList(2,3,4));
+        Assert.assertNotEquals(0, productCategoryList.size());
     }
 
     @Test
-    public void save() throws Exception{
-        ProductCategory productCategory = new ProductCategory("nansheng", 10);
+    public void save() {
+        ProductCategory productCategory = new ProductCategory("My Love", 6);
         ProductCategory result = categoryService.save(productCategory);
         Assert.assertNotNull(result);
     }
