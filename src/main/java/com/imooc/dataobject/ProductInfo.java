@@ -1,32 +1,49 @@
 package com.imooc.dataobject;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
+import org.hibernate.annotations.DynamicUpdate;
+
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 /**
- * 商品DAO
+ * 商品：对象；一个商品对象具有如下定义的属性
+ * Created by Liqiankun on 2019/6/11
+ * param:
  */
-@Entity
-@Data
+
+@Entity//数据库映射成对象
+@DynamicUpdate//数据库自动修改日期
+@Data//Data包含了生成get和set以及同String的方法，就可以不用在写get和set的方法了
 public class ProductInfo {
+
     @Id
     private String productId;
-    //商品名字
+
+    /**名字*/
     private String productName;
-    //商品价格
+
+    /**单价*/
     private BigDecimal productPrice;
-    //库存
+
+    /**库存*/
     private Integer productStock;
-    //商品描述
+
+    /**描述*/
     private String productDescription;
-    //商品图标
+
+    /**小图*/
     private String productIcon;
-    //状态；1:下架；0：正常
+
+    /***/
+    private Integer productType;
+
+    /**状态 0：正常；1：下架*/
     private Integer productStatus;
-    //类目编码
+
+    /**类目编码: 商品和类目的关系用这个字段标示，即：这个商品属于哪个类目下的*/
     private Integer categoryType;
 
     public ProductInfo() {
