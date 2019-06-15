@@ -5,6 +5,7 @@ import lombok.Getter;
 /**
  * Created by Liqiankun on 2019/6/14
  * param:
+ * 测试github的使用
  */
 @Getter
 public enum OrderStatusEnum {
