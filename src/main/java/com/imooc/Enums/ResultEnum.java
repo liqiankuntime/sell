@@ -10,6 +10,7 @@ import lombok.Getter;
 public enum ResultEnum {
 
     PRODUCT_NOT_EXIST(10, "商品不存在"),
+    PRODUCT_NOT_Enough(11, "商品库存不足"),
     ;
 
     private Integer code;
