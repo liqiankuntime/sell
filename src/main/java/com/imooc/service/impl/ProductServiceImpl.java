@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -26,8 +27,18 @@ public class ProductServiceImpl implements ProductService {
     private ProductInfoRepository repository;
 
     @Override
+    @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
-
+        //增加库存
+        for(CartDTO cartDTO: cartDTOList){
+            ProductInfo productInfo = repository.getOne(cartDTO.getProductId());
+            if(productInfo == null){
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
+            productInfo.setProductStock(result);
+            repository.save(productInfo);
+        }
     }
 
     @Override

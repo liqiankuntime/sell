@@ -1,5 +1,6 @@
 package com.imooc.service.impl;
 
+import com.imooc.Enums.OrderStatusEnum;
 import com.imooc.dataobject.OrderDetail;
 import com.imooc.dto.OrderDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class OrderServiceImplTest {
     private final String orderID="1560748477707204013";
 
     @Test
-    public void create() {
+    public void create() {//common+英文字母下的小数点：收起代码库功能
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setBuyerName("廖师兄");
         orderDTO.setBuyerAddress("用友");
@@ -72,6 +73,9 @@ public class OrderServiceImplTest {
 
     @Test
     public void cancel() {
+        OrderDTO orderDTO = orderService.findOne(orderID);
+        OrderDTO result = orderService.cancel(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.CANCLE.getCode(), result.getOrderStatus());
     }
 
     @Test
