@@ -1,6 +1,7 @@
 package com.imooc.service.impl;
 
 import com.imooc.Enums.OrderStatusEnum;
+import com.imooc.Enums.PayStatuEnum;
 import com.imooc.dataobject.OrderDetail;
 import com.imooc.dto.OrderDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -80,9 +81,15 @@ public class OrderServiceImplTest {
 
     @Test
     public void finish() {
+        OrderDTO orderDTO = orderService.findOne(orderID);
+        OrderDTO result = orderService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISH.getCode(), result.getOrderStatus());
     }
 
     @Test
     public void paied() {
+        OrderDTO orderDTO = orderService.findOne(orderID);
+        OrderDTO result = orderService.paied(orderDTO);
+        Assert.assertEquals(PayStatuEnum.SUCCESS.getCode(), result.getPayStatu());
     }
 }
