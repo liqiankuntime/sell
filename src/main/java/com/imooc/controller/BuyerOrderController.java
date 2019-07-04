@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.xml.transform.Result;
 import java.util.*;
 
 @RestController
@@ -71,6 +72,26 @@ public class BuyerOrderController {
         return ResultVOUtil.success(orderDTOPage.getContent());
     }
     //订单详情
+    @GetMapping("/detai")
+    public ResultVO<OrderDTO> detail(
+            @RequestParam("openid") String openid,
+            @RequestParam("orderId") String orderId
+    ){
+
+        //TODO 不安全，因为没有权限校验，这个时候谁都能查，应该是自己查自己的
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        return ResultVOUtil.success(orderDTO);
+    }
 
     //取消订单
+    @PostMapping("/cancel")
+    public ResultVO<OrderDTO> cancel(
+            @RequestParam("openid") String openid,
+            @RequestParam("orderId") String orderId
+    ){
+        //TODO 不安全，因为没有权限校验，这个时候谁都能查，应该是自己查自己的
+        OrderDTO orderDTO = orderService.findOne(orderId);
+        orderService.cancel(orderDTO);
+        return ResultVOUtil.success();
+    }
 }
