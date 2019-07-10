@@ -7,6 +7,7 @@ import com.imooc.converter.OrderForm2OrderDTOConverter;
 import com.imooc.dto.OrderDTO;
 import com.imooc.exception.SellException;
 import com.imooc.form.OrderForm;
+import com.imooc.service.BuyerService;
 import com.imooc.service.OrderService;
 import com.imooc.utils.ResultVOUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,10 @@ import java.util.*;
 public class BuyerOrderController {
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private BuyerService buyerService;
+
     @PostMapping("/create")
     //创建订单
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
@@ -79,7 +84,10 @@ public class BuyerOrderController {
     ){
 
         //TODO 不安全，因为没有权限校验，这个时候谁都能查，应该是自己查自己的
-        OrderDTO orderDTO = orderService.findOne(orderId);
+//        OrderDTO orderDTO = orderService.findOne(orderId);
+
+        //安全做法是要校验是否属于本人的
+        OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
         return ResultVOUtil.success(orderDTO);
     }
 
@@ -90,8 +98,11 @@ public class BuyerOrderController {
             @RequestParam("orderId") String orderId
     ){
         //TODO 不安全，因为没有权限校验，这个时候谁都能查，应该是自己查自己的
-        OrderDTO orderDTO = orderService.findOne(orderId);
-        orderService.cancel(orderDTO);
+//        OrderDTO orderDTO = orderService.findOne(orderId);
+//        orderService.cancel(orderDTO);
+
+        //安全做法
+        buyerService.cancelOrder(openid, orderId);
         return ResultVOUtil.success();
     }
 }
